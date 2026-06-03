@@ -9,6 +9,11 @@ import {
   type NewComment,
 } from "./schema";
 
+type UpdateUserInput = Partial<Pick<NewUser, "email" | "name" | "imageUrl">>;
+type UpdateProductInput = Partial<
+  Pick<NewProduct, "title" | "description" | "imageUrl">
+>;
+
 // USER QUERIES
 export const createUser = async (data: NewUser) => {
   const [user] = await db.insert(users).values(data).returning();
@@ -19,7 +24,7 @@ export const getUserById = async (id: string) => {
   return db.query.users.findFirst({ where: eq(users.id, id) });
 };
 
-export const updateUser = async (id: string, data: Partial<NewUser>) => {
+export const updateUser = async (id: string, data: UpdateUserInput) => {
   const [user] = await db
     .update(users)
     .set(data)
@@ -29,10 +34,24 @@ export const updateUser = async (id: string, data: Partial<NewUser>) => {
 };
 
 export const upsertUser = async (data: NewUser) => {
-  const existingUser = await getUserById(data.id);
-  if (existingUser) return updateUser(data.id, data);
+  // const existingUser = await getUserById(data.id);
+  // if (existingUser) return updateUser(data.id, data);
 
-  return createUser(data);
+  // return createUser(data);
+
+  const [user] = await db
+    .insert(users)
+    .values(data)
+    .onConflictDoUpdate({
+      target: users.id,
+      set: {
+        email: data.email,
+        name: data.name,
+        imageUrl: data.imageUrl,
+      },
+    })
+    .returning();
+  return user;
 };
 
 // PRODUCT QUERIES
@@ -69,7 +88,7 @@ export const getProductByUserId = async (userId: string) => {
   });
 };
 
-export const updateProduct = async (id: string, data: Partial<NewProduct>) => {
+export const updateProduct = async (id: string, data: UpdateProductInput) => {
   const [product] = await db
     .update(products)
     .set(data)
