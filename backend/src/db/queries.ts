@@ -48,6 +48,7 @@ export const upsertUser = async (data: NewUser) => {
         email: data.email,
         name: data.name,
         imageUrl: data.imageUrl,
+        updatedAt: new Date(),
       },
     })
     .returning();
