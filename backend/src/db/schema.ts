@@ -39,6 +39,11 @@ export const comments = pgTable("comments", {
   productId: uuid("product_id")
     .notNull()
     .references(() => products.id, { onDelete: "cascade" }),
+  createdAt: timestamp("created_at", { mode: "date" }).notNull().defaultNow(),
+  updatedAt: timestamp("updated_at", { mode: "date" })
+    .notNull()
+    .defaultNow()
+    .$onUpdate(() => new Date()),
 });
 
 // SCHEMAS RELATIONS
