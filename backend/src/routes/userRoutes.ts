@@ -2,8 +2,8 @@ import { Router } from "express";
 import { syncUser } from "../controllers/userController";
 import { requireAuth } from "@clerk/express";
 
-const UserRouter = Router();
+const userRouter = Router();
 
-UserRouter.post("/sync", requireAuth(), syncUser);
+userRouter.post("/sync", requireAuth(), syncUser);
 
-export default UserRouter;
+export default userRouter;

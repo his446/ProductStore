@@ -2,9 +2,9 @@ import express, { json } from "express";
 import cors from "cors";
 import { ENV } from "./config/env";
 import { clerkMiddleware } from "@clerk/express";
-import UserRouter from "./routes/userRoutes";
-import ProductRouter from "./routes/productRoutes";
-import CommentRouter from "./routes/commentRoutes";
+import userRouter from "./routes/userRoutes";
+import productRouter from "./routes/productRoutes";
+import commentRouter from "./routes/commentRoutes";
 
 const app = express();
 
@@ -24,9 +24,9 @@ app.get("/", (req, res) => {
   });
 });
 
-app.use("/api/users", UserRouter)
-app.use("/api/products", ProductRouter)
-app.use("/api/comments", CommentRouter)
+app.use("/api/users", userRouter);
+app.use("/api/products", productRouter);
+app.use("/api/comments", commentRouter);
 
 app.listen(ENV.PORT, () => {
   console.log(`Server is up and running on PORT: ${ENV.PORT}`);
