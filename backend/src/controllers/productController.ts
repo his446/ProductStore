@@ -30,12 +30,13 @@ export const getProductById = async (req: Request, res: Response) => {
     // const { productId } = req.params;
     const productId = String(req.params.productId);
     const product = await queries.getProductById(productId);
-    return res.status(200).json(product);
 
     if (!product)
       return res
         .status(404)
         .json({ error: `Product with id! ${productId} is not found !` });
+
+    return res.status(200).json(product);
   } catch (error) {
     console.error("Error while fetching product with id: ", error);
     res.status(500).json({ error: "Error while getting product by Id!" });
