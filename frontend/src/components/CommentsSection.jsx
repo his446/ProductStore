@@ -92,7 +92,7 @@ const CommentsSection = ({ productId, comments = [], currentUserId }) => {
                 {comment.content}
               </div>
 
-              {currentUserId == comment.userId && (
+              {currentUserId === comment.userId && (
                 <div className="chat-footer">
                   <button
                     onClick={() =>
