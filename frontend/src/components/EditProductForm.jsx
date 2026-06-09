@@ -91,7 +91,7 @@ const EditProductForm = ({ product, isPending, isError, onSubmit }) => {
 
             {isError && (
               <div role="alert" className="alert alert-error alert-sm">
-                <span>Failed to create. Try again.</span>
+                <span>Failed to update. Try again.</span>
               </div>
             )}
 
