@@ -5,6 +5,7 @@ import {
   getAllProducts,
   getMyProducts,
   getProductById,
+  updateProduct,
 } from "../lib/api";
 
 export const useProducts = () => {
@@ -46,4 +47,8 @@ export const useMyProducts = () => {
     queryKey: ["myProducts"],
     queryFn: getMyProducts,
   });
+};
+
+export const useUpdateProduct = () => {
+  return useMutation({ mutationFn: updateProduct });
 };

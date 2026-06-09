@@ -34,6 +34,7 @@ export const DAISYUI_THEMES = [
   "caramellatte",
   "abyss",
   "silk",
-] as const;
+] 
+// as const;
 
-export type DaisyTheme = (typeof DAISYUI_THEMES)[number];
+// export type DaisyTheme = (typeof DAISYUI_THEMES)[number];
